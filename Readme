@@ -1,0 +1,43 @@
+# Data Leak Analysis: Applying the Principle of Least Privilege
+
+A security analysis of a data leak at a fictional ed-tech company, using **NIST SP 800-53 (AC-6: Least Privilege)** and the **NIST Cybersecurity Framework (CSF)**.
+
+## Scenario
+
+An ed-tech company's grading application handles data from schools, teachers, parents, and students. Internal business plans leaked on social media after a manager shared a folder of confidential documents (customer analytics and marketing materials) with a sales representative and forgot to unshare it. The representative later meant to send a link to one marketing file to a business partner, but sent the link to the entire folder. The partner posted it publicly.
+
+**Goal:** find out why it happened and how to prevent it.
+
+## Security Plan Snapshot
+
+| Function | Category | Subcategory | Reference |
+|----------|----------|-------------|-----------|
+| Protect | PR.DS: Data security | PR.DS-5: Protections against data leaks | NIST SP 800-53: AC-6 |
+
+## Analysis
+
+### Issue(s)
+The manager forgot to revoke the representative's access to the internal folder after the meeting, so confidential files stayed shared longer than needed. The representative then mistakenly shared the link to the entire folder instead of only the promotional materials, giving an outside partner access to private business information.
+
+### Review
+NIST SP 800-53: AC-6 covers least privilege: users should receive only the minimum access needed to complete their tasks. It calls for enforcing this through processes, user accounts, and roles, and suggests enhancements such as restricting access by role, automatically revoking access, logging activity, and regularly auditing privileges.
+
+### Recommendation(s)
+1. Automatically revoke access to information after a period of time.
+2. Restrict access to sensitive resources based on user role.
+
+### Justification
+1. The leak began when the manager forgot to revoke access. Automatically revoking access after a set period would have removed the representative's access once the meeting ended.
+2. Restricting sensitive data by user role would have limited the representative to the promotional materials, letting them do their job without being able to share the entire folder.
+
+## Key Takeaways
+
+- Least privilege weakens when access is broad and lasts longer than the task.
+- Human memory is not a security control. Expiry should be automatic.
+- Role-based access limits the damage of a single mistake.
+- Authentication (such as MFA) confirms *who* a user is. Least privilege controls *what* they can reach. They work together but solve different problems.
+
+## Frameworks Used
+
+- NIST Cybersecurity Framework (CSF)
+- NIST SP 800-53, control AC-6
